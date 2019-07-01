@@ -181,9 +181,9 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
 
 
     private void pieChartSet() {
-        colors.add(getResources().getColor(R.color.colorPrimary));
-        colors.add(getResources().getColor(R.color.text_color));
-        colors.add(getResources().getColor(R.color.twitter_button_color));
+        colors.add(getResources().getColor(R.color.blue));
+        colors.add(getResources().getColor(R.color.red));
+        colors.add(getResources().getColor(R.color.green));
 
 
         Entry entryGQ = new Entry(order_received, 0);

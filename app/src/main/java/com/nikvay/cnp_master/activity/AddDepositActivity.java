@@ -4,7 +4,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
@@ -41,6 +43,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -70,6 +76,7 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
     Uri imageUrl;
     String photo,TAG = getClass().getSimpleName();
     private boolean isSelect = false;
+    private static final String IMAGE_DIRECTORY = "/CNPINDIA";
 
 
     @Override
@@ -187,14 +194,17 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
 
     private void takeFromCamera() {
         // Check if this device has a camera
-        if (getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+        /*if (getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);    // Open default camera
             intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);             // start the image capture Intent
             startActivityForResult(intent, MY_CAMERA_REQUEST_CODE);        //100
         } else {
             // no camera on this device
             Toast.makeText(AddDepositActivity.this, "Camera not supported", LENGTH_LONG).show();
-        }
+        }*/
+
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,MY_CAMERA_REQUEST_CODE);
     }
 
     private void takeFromGallery() {
@@ -208,15 +218,27 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            imageUrl = data.getData();
-            if (requestCode == MY_CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
-                bitmap = (Bitmap) data.getExtras().get("data");
+            if(resultCode==RESULT_OK) {
 
-            } else {
-                bitmap = MediaStore.Images.Media.getBitmap(AddDepositActivity.this.getContentResolver(), imageUrl);
+                if (requestCode == MY_CAMERA_REQUEST_CODE) {
+
+                    Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                    // image_view_doctor_report.setImageBitmap(thumbnail);
+                    saveImage(thumbnail);
+                    //                    update pick start
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                    byte[] imgByte = byteArrayOutputStream.toByteArray();
+                    photo = Base64.encodeToString(imgByte, Base64.DEFAULT);
+                    textPhoto.setText("File Uploaded");
+
+                } else if (requestCode == MY_GALLERY_REQUEST_CODE) {
+                    imageUrl = data.getData();
+                    bitmap = MediaStore.Images.Media.getBitmap(AddDepositActivity.this.getContentResolver(), imageUrl);
+                    // ==== User Defined Method ======
+                    convertToBase64(bitmap); //converting image to base64 string
+                }
             }
-            // ==== User Defined Method ======
-            convertToBase64(bitmap); //converting image to base64 string
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -225,7 +247,7 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
 
     private void convertToBase64(final Bitmap bitmap) {
         ByteArrayOutputStream bAOS = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bAOS);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bAOS);
         byte[] imageBytes = bAOS.toByteArray();
         photo = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         textPhoto.setText("File Upload");
@@ -317,5 +339,34 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
             }
         });
 
+    }
+
+    public String saveImage(Bitmap myBitmap) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        File wallpaperDirectory = new File(
+                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+        // have the object build the directory structure, if needed.
+        if (!wallpaperDirectory.exists()) {
+            wallpaperDirectory.mkdirs();
+        }
+
+        try {
+            File f = new File(wallpaperDirectory, Calendar.getInstance()
+                    .getTimeInMillis() + ".jpg");
+            f.createNewFile();
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            MediaScannerConnection.scanFile(AddDepositActivity.this,
+                    new String[]{f.getPath()},
+                    new String[]{"image/jpeg"}, null);
+            fo.close();
+            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
+
+            return f.getAbsolutePath();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return "";
     }
 }

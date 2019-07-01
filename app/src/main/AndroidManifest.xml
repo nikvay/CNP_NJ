@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".volley_support.AppController"
@@ -164,6 +165,17 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="8231de6c0c7cdedee5183acb38f73cc9512671a5" />
-    </application>
+
+
+   <!--  <provider
+         android:authorities="com.nikvay.cnp_master.fileprovider"
+         android:name="android.support.v4.content.FileProvider"
+         android:exported="false"
+         android:grantUriPermissions="true">
+         <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+             android:resource="@xml/file_paths"/>
+     </provider>
+-->
+</application>
 
 </manifest>

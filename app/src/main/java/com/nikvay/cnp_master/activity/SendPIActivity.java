@@ -118,6 +118,14 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         textSpecs = findViewById(R.id.textSpecs);
         textOther = findViewById(R.id.textOther);
 
+
+
+        textTransporter.setText("NA");
+        textPaymentDetails.setText("NA");
+        ///textEmail.setText("NA");
+        textSpecs.setText("NA");
+        textOther.setText("NA");
+
         radioGroupDispatchEmail = findViewById(R.id.radioGroupDispatchEmail);
         radioGroupCMY = findViewById(R.id.radioGroupCMY);
         ll_customerEdit = findViewById(R.id.ll_edit_customer);
@@ -172,18 +180,30 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                 } else if (getOther.equalsIgnoreCase("")) {
                     textOther.setError("Enter Other");
                     textOther.requestFocus();
+                } else if (delivery1_address.equalsIgnoreCase("")) {
+                    textDelivery_Address.setError("Enter Company Details");
+                    textDelivery_Address.requestFocus();
+                } else if (delivery2_address.equalsIgnoreCase("")) {
+                    textDelivery1_Address.setError("Enter Company Address");
+                    textDelivery1_Address.requestFocus();
+                } else if (delivery3_address.equalsIgnoreCase("")) {
+                    textDelivery2_Address.setError("Enter Location State Pin Code");
+                    textDelivery2_Address.requestFocus();
+                } else if (delivery4_address.equalsIgnoreCase("")) {
+                    textDelivery3_Address.setError("Enter Number Email");
+                    textDelivery3_Address.requestFocus();
                 } else if (profileComplete.equalsIgnoreCase("Yes")) {
                     if (getReference.equalsIgnoreCase("")) {
-                        messageDialog.showDialog("Customer Master Is" + "\n" + "Un-completed");
+                        messageDialog.showDialog("Customer Master Is" + "\n" + "In-completed");
                     } else if (getCellNo.equalsIgnoreCase("")) {
-                        messageDialog.showDialog("Customer Master Is" + "\n" + "Un-completed");
+                        messageDialog.showDialog("Customer Master Is" + "\n" + "In-completed");
 
                     } else if (getBilling_Gst.equalsIgnoreCase("")) {
-                        messageDialog.showDialog("Customer Master Is" + "\n" + "Un-completed");
+                        messageDialog.showDialog("Customer Master Is" + "\n" + "In-completed");
                     } /*else if (getDelivery_Address.equalsIgnoreCase("")) {
-                        messageDialog.showDialog("Customer Master Is" + "\n" + " Un-completed");
+                        messageDialog.showDialog("Customer Master Is" + "\n" + " In-completed");
                     }*/ else if (getTermOfPay.equalsIgnoreCase("")) {
-                        messageDialog.showDialog("Customer Master Is" + "\n" + "Un-completed");
+                        messageDialog.showDialog("Customer Master Is" + "\n" + "In-completed");
                     } else {
                         callCustomerUpdate();
                         callSendPiWS();
@@ -211,22 +231,12 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                         textTerm_Of_Payment.requestFocus();
                     } else {
                         callCustomerUpdate();
+                        callSendPiWS();
                     }
-                } else if (delivery1_address.equalsIgnoreCase("")) {
-                    textDelivery_Address.setError("Enter Company Details");
-                    textDelivery_Address.requestFocus();
-                } else if (delivery2_address.equalsIgnoreCase("")) {
-                    textDelivery1_Address.setError("Enter Company Address");
-                    textDelivery1_Address.requestFocus();
-                } else if (delivery3_address.equalsIgnoreCase("")) {
-                    textDelivery2_Address.setError("Enter Location State Pin Code");
-                    textDelivery2_Address.requestFocus();
-                } else if (delivery4_address.equalsIgnoreCase("")) {
-                    textDelivery3_Address.setError("Enter Number Email");
-                    textDelivery3_Address.requestFocus();
-                } else {
-                     callSendPiWS();
                 }
+
+               // callSendPiWS();
+
 
 
             }

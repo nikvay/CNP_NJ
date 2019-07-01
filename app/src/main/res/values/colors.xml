@@ -34,5 +34,10 @@
     <color name="edit_text_bg_color">#3BD1CE</color>
     <color name="login_button_text_color">#08586A</color>
     <color name="text_hint_color">#C2C2C2</color>
-    <color name="pro_version_layout_bg_color">#D5E6E6</color>
+
+
+
+    <color name="red">#FF0000</color>
+
+
 </resources>

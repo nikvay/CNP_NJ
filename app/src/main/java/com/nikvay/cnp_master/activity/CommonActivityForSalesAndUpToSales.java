@@ -251,7 +251,7 @@ public class CommonActivityForSalesAndUpToSales extends AppCompatActivity {
                                 if (customerUpToSaleModelArrayList.size() != 0) {
 
 
-                                    for (int i = 0; i <= customerUpToSaleModelArrayList.size(); i++) {
+                                    for (int i = 0; i <customerUpToSaleModelArrayList.size(); i++) {
 
                                         String month1 = String.valueOf(customerUpToSaleModelArrayList.get(i).getMonth1() == null ? "" : customerUpToSaleModelArrayList.get(i).getMonth1());
                                         String month1_count = String.valueOf(customerUpToSaleModelArrayList.get(i).getMonth1_count() == null ? "" : customerUpToSaleModelArrayList.get(i).getMonth1_count());
@@ -259,7 +259,7 @@ public class CommonActivityForSalesAndUpToSales extends AppCompatActivity {
                                         String month2 = String.valueOf(customerUpToSaleModelArrayList.get(i).getMonth2() == null ? "" : customerUpToSaleModelArrayList.get(i).getMonth2());
                                         String month2_count = String.valueOf(customerUpToSaleModelArrayList.get(i).getMonth2_count() == null ? "" : customerUpToSaleModelArrayList.get(i).getMonth2_count());
 
-                                        String month3 = String.valueOf(customerUpToSaleModelArrayList.get(i).getMonth3() == null ? "" : customerUpToSaleModelArrayList.get(i));
+                                        String month3 = String.valueOf(customerUpToSaleModelArrayList.get(i).getMonth3() == null ? "" : customerUpToSaleModelArrayList.get(i).getMonth3());
                                         String month3_count = String.valueOf(customerUpToSaleModelArrayList.get(i).getMonth3_count() == null ? "" : customerUpToSaleModelArrayList.get(i).getMonth3_count());
 
                                         String month4 = String.valueOf(customerUpToSaleModelArrayList.get(i).getMonth4() == null ? "" : customerUpToSaleModelArrayList.get(i).getMonth4());

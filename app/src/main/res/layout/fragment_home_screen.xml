@@ -35,13 +35,10 @@
             app:cardCornerRadius="@dimen/cardview_default_radius">
 
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/colorPrimary"
                 android:orientation="vertical"
                 android:weightSum="4">
@@ -446,7 +443,6 @@
 
             </LinearLayout>
 
-            </ScrollView>
 
 
 
