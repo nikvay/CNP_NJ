@@ -549,6 +549,41 @@
 
 
 
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center|left"
+                    android:text="ORC"
+                    android:textColor="@color/colorPrimary" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/radioGroupORC"
+                    android:checkedButton="@id/radioORCNo">
+
+                    <RadioButton
+                        android:id="@+id/radioORCYes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Yes" />
+
+                    <RadioButton
+                        android:id="@+id/radioORCNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No" />
+
+
+
+                </RadioGroup>
+
+
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -647,6 +682,10 @@
                         android:inputType="text"
                         android:textColor="@color/colorPrimary" />
                 </android.support.design.widget.TextInputLayout>
+
+
+
+
 
 
                 <Button

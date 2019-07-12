@@ -1,14 +1,20 @@
 package com.nikvay.cnp_master.activity;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Vibrator;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -28,31 +34,44 @@ import com.nikvay.cnp_master.volley_support.VolleyCompleteListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class SendPIActivity extends AppCompatActivity implements VolleyCompleteListener, SuccessDialogClosed {
     private Button btnSubmitSendPi;
 
 
-    private RadioButton radioYCA, radioNCA, radioDispatchEmail, radioCM, radioTCY, radioTCN, radioInspectionY, radioInspectionN, radioDelivery;
+    private RadioButton radioYCA, radioNCA, radioDispatchEmail, radioCM, radioTCY, radioTCN, radioInspectionY, radioInspectionN, radioDelivery, radioORCYes, radioORCNo;
     private AutoCompleteTextView textTransporter, textPaymentDetails, textEmail, textSpecs, textOther, textReference, textCell_No, textBilling_GST_No, textDelivery_Address, textTerm_Of_Payment, textDelivery1_Address, textDelivery2_Address, textDelivery3_Address;
     private TextInputLayout textReferenceTI, textCell_NoTI, textBilling_GST_NoTI, textDelivery_AddressTI, textTerm_Of_PaymentTI, textDelivery1_AddressTI, textDelivery2_AddressTI, textDelivery3_AddressTI;
-    private RadioGroup radioGroupDispatchEmail, radioGroupCMY, radioGroupDeliveryAddress;
+    private RadioGroup radioGroupDispatchEmail, radioGroupCMY, radioGroupDeliveryAddress, radioGroupORC;
 
     String profileComplete = "Yes", deliveryAddress;
     private String mQuotationNumber;
     private SuccessDialog successDialog;
     private LinearLayout ll_customerEdit, ll_delivery_address;
     private CustomerUpdateBlankField customerUpdateBlankField;
-    String customer_id, reference, cell_no, email_id, billing_GST_no, delivery_address, term_of_payment;
-    String mReference, mCell_no, mBilling_GST_no, mDelivery_address, mTerm_of_payment;
-    String getReference, getCellNo, getBilling_Gst, getDelivery_Address, getTermOfPay, getEmail, getPaymentDetails, getTransporter, getOther, getSpecs;
-    String billing_address1, billing_address2, billing_address3, billing_address4;
-    String old_delevery_address1, old_delevery_address2, old_delevery_address3, old_delevery_address4;
+    private String customer_id, reference, cell_no, email_id, billing_GST_no, delivery_address, term_of_payment;
+    private String mReference, mCell_no, mBilling_GST_no, mDelivery_address, mTerm_of_payment;
+    private String getReference, getCellNo, getBilling_Gst, getDelivery_Address, getTermOfPay, getEmail, getPaymentDetails, getTransporter, getOther, getSpecs;
+    private String billing_address1, billing_address2, billing_address3, billing_address4;
+    private String old_delevery_address1, old_delevery_address2, old_delevery_address3, old_delevery_address4;
+
 
     static int blankFieldCount = 0;
 
     MessageDialog messageDialog;
+
+    //ORC
+    private String orc = "no";
+    private Dialog orcYesDialog;
+    private Button btnOkDialogORC, btnCancelDialogORC;
+    private AutoCompleteTextView textCompanyNameORC, textPersonNameORC, textPanNoORC, textAmountORC,
+            textInvoiceNoAndAmountORC, textDiscountORC, textAmountOnORC, textDateOnInvoiceORC, textCommentsORC, textFormDateORC;
+
+    private String textCompanyName, textPersonName, textPanNo, textAmount, textInvoiceAndAmount,
+            textDiscount, textAmountOrc, textDateInInvoice, textComment, textFormDate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +105,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         radioTCN = findViewById(R.id.radioTCN);
         radioInspectionY = findViewById(R.id.radioInspectionY);
         radioInspectionN = findViewById(R.id.radioInspectionN);
+        radioGroupORC = findViewById(R.id.radioGroupORC);
 
 
         textReference = findViewById(R.id.textReference);
@@ -119,7 +139,6 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         textOther = findViewById(R.id.textOther);
 
 
-
         textTransporter.setText("NA");
         textPaymentDetails.setText("NA");
         ///textEmail.setText("NA");
@@ -131,6 +150,31 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         ll_customerEdit = findViewById(R.id.ll_edit_customer);
 
         btnSubmitSendPi = findViewById(R.id.btnSubmitSendPi);
+
+
+        //ORC Dialog Start
+        orcYesDialog = new Dialog(this);
+        orcYesDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        orcYesDialog.setContentView(R.layout.dialog_orc);
+        btnOkDialogORC = orcYesDialog.findViewById(R.id.btnOkDialogORC);
+        btnCancelDialogORC = orcYesDialog.findViewById(R.id.btnCancelDialogORC);
+
+        textCompanyNameORC = orcYesDialog.findViewById(R.id.textCompanyNameORC);
+        textPersonNameORC = orcYesDialog.findViewById(R.id.textPersonNameORC);
+        textPanNoORC = orcYesDialog.findViewById(R.id.textPanNoORC);
+        textAmountORC = orcYesDialog.findViewById(R.id.textAmountORC);
+        textInvoiceNoAndAmountORC = orcYesDialog.findViewById(R.id.textInvoiceNoAndAmountORC);
+        textDiscountORC = orcYesDialog.findViewById(R.id.textDiscountORC);
+        textAmountOnORC = orcYesDialog.findViewById(R.id.textAmountOnORC);
+        textDateOnInvoiceORC = orcYesDialog.findViewById(R.id.textDateOnInvoiceORC);
+        textCommentsORC = orcYesDialog.findViewById(R.id.textCommentsORC);
+        textFormDateORC = orcYesDialog.findViewById(R.id.textFormDateORC);
+
+        Window window = orcYesDialog.getWindow();
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
+        //End ORC Dialog
 
 
         events();
@@ -235,8 +279,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                     }
                 }
 
-               // callSendPiWS();
-
+                // callSendPiWS();
 
 
             }
@@ -294,8 +337,152 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
             }
         });
 
+        radioGroupORC.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioORCYes = findViewById(checkedId);
+                String ORCName = radioORCYes.getText().toString().trim();
+                if (ORCName.equalsIgnoreCase("Yes")) {
+                    orc = "yes";
+                    orcYesDialog.show();
+
+                } else if (ORCName.equalsIgnoreCase("No")) {
+                    orc = "no";
+                }
+            }
+        });
+
+
+        btnCancelDialogORC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                orcYesDialog.dismiss();
+                orc = "no";
+
+                textCompanyNameORC.setText("");
+                textPersonNameORC.setText("");
+                textPanNoORC.setText("");
+                textAmountORC.setText("");
+                textInvoiceNoAndAmountORC.setText("");
+                textDiscountORC.setText("");
+                textAmountOnORC.setText("");
+                textDateOnInvoiceORC.setText("");
+                textCommentsORC.setText("");
+                textFormDateORC.setText("");
+            }
+        });
+
+        btnOkDialogORC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                textCompanyName = textCompanyNameORC.getText().toString().trim();
+                textPersonName = textPersonNameORC.getText().toString().trim();
+                textPanNo = textPanNoORC.getText().toString().trim();
+                textAmount = textAmountORC.getText().toString().trim();
+                textInvoiceAndAmount = textInvoiceNoAndAmountORC.getText().toString().trim();
+                textDiscount = textDiscountORC.getText().toString().trim();
+                textAmountOrc = textAmountOnORC.getText().toString().trim();
+                textDateInInvoice = textDateOnInvoiceORC.getText().toString().trim();
+                textComment = textCommentsORC.getText().toString().trim();
+                textFormDate = textFormDateORC.getText().toString().trim();
+
+                if (textCompanyName.equalsIgnoreCase("")) {
+                    textCompanyNameORC.setError("Enter Company Name");
+                    textCompanyNameORC.requestFocus();
+                } else if (textPersonName.equalsIgnoreCase("")) {
+                    textPersonNameORC.setError("Enter Person Name");
+                    textPersonNameORC.requestFocus();
+                } else if (textPanNo.equalsIgnoreCase("")) {
+                    textPanNoORC.setError("Enter Pan Number");
+                    textPanNoORC.requestFocus();
+                } else if (textAmount.equalsIgnoreCase("")) {
+                    textAmountORC.setError("Enter Amount Invoice");
+                    textAmountORC.requestFocus();
+                } else if (textInvoiceAndAmount.equalsIgnoreCase("")) {
+                    textInvoiceNoAndAmountORC.setError("Enter Invoice No And Amount");
+                    textInvoiceNoAndAmountORC.requestFocus();
+                } else if (textInvoiceAndAmount.equalsIgnoreCase("")) {
+                    textInvoiceNoAndAmountORC.setError("Enter Invoice No And Amount");
+                    textInvoiceNoAndAmountORC.requestFocus();
+                } else if (textDiscount.equalsIgnoreCase("")) {
+                    textDiscountORC.setError("Enter Discount");
+                    textDiscountORC.requestFocus();
+                } else if (textAmountOrc.equalsIgnoreCase("")) {
+                    textAmountOnORC.setError("Enter Amount In ORC");
+                    textAmountOnORC.requestFocus();
+                } else if (textDateInInvoice.equalsIgnoreCase("")) {
+                    textDateOnInvoiceORC.setError("Enter Date Of Invoice");
+                    textDateOnInvoiceORC.requestFocus();
+                } else if (textFormDate.equalsIgnoreCase("")) {
+                    textFormDateORC.setError("Enter Form Date");
+                    textFormDateORC.requestFocus();
+                } else {
+                    orcYesDialog.dismiss();
+                }
+            }
+        });
+
+        textFormDateORC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SendPIActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                        CharSequence strDate = null;
+                        Time chosenDate = new Time();
+                        chosenDate.set(day, month, year);
+
+                        long dateAttendance = chosenDate.toMillis(true);
+                        strDate = DateFormat.format("yyyy-MM-dd", dateAttendance);
+
+                        String date = (String) strDate;
+                        textFormDateORC.setText(date);
+
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+
+        textDateOnInvoiceORC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(SendPIActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+
+                        CharSequence strDate = null;
+                        Time chosenDate = new Time();
+                        chosenDate.set(day, month, year);
+
+                        long dateAttendance = chosenDate.toMillis(true);
+                        strDate = DateFormat.format("yyyy-MM-dd", dateAttendance);
+
+                        String date = (String) strDate;
+                        textDateOnInvoiceORC.setText(date);
+
+                    }
+                }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
 
     }
+
 
     private void newAddress() {
 
@@ -456,6 +643,19 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         map.put("space_related", getSpecs);
         map.put("inspection", radioInspectionY.isSelected() ? "yes" : "no");
         map.put("others", getOther);
+        map.put("is_orc", orc);
+        if (orc.equalsIgnoreCase("yes")) {
+            map.put("company_name", textCompanyName);
+            map.put("contact_person", textPersonName);
+            map.put("pan_num", textPanNo);
+            map.put("exact_amount_of_invoice", textAmount);
+            map.put("invoice_num", textInvoiceAndAmount);
+            map.put("discount_offered", textDiscount);
+            map.put("amount_of_orc", textAmountOrc);
+            map.put("tentative_date_of_invoice", textDateInInvoice);
+            map.put("comment", textComment);
+            map.put("from_date", textFormDate);
+        }
 
         new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.SEND_PI, true);
     }
