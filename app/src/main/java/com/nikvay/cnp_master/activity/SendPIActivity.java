@@ -15,6 +15,7 @@ import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -67,10 +68,12 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
     private Dialog orcYesDialog;
     private Button btnOkDialogORC, btnCancelDialogORC;
     private AutoCompleteTextView textCompanyNameORC, textPersonNameORC, textPanNoORC, textAmountORC,
-            textInvoiceNoAndAmountORC, textDiscountORC, textAmountOnORC, textDateOnInvoiceORC, textCommentsORC, textFormDateORC;
+            textInvoiceNoAndAmountORC, textDiscountORC, textAmountOnORC, textCommentsORC;
 
     private String textCompanyName, textPersonName, textPanNo, textAmount, textInvoiceAndAmount,
             textDiscount, textAmountOrc, textDateInInvoice, textComment, textFormDate;
+
+    private EditText textDateOnInvoiceORC, textFormDateORC;
 
 
     @Override
@@ -175,6 +178,9 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
 
 
         //End ORC Dialog
+
+        textDateOnInvoiceORC.setFocusable(false);
+        textFormDateORC.setFocusable(false);
 
 
         events();
