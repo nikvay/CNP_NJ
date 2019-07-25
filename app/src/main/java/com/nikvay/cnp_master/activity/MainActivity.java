@@ -53,7 +53,8 @@ import com.nikvay.cnp_master.utils.StaticContent;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements HomeScreenFragment.iHomeScreenFragmentItemClick, ProfileFragment.iProfileFragmentItemClick, ChangePasswordFragment.iChangePasswordFragmentItemClick {
+public class MainActivity extends AppCompatActivity implements HomeScreenFragment.iHomeScreenFragmentItemClick, ProfileFragment.iProfileFragmentItemClick, ChangePasswordFragment.iChangePasswordFragmentItemClick
+{
 
     private static final String TAG = MainActivity.class.getSimpleName();
     boolean doubleBackToExitPressedOnce = false;
@@ -242,12 +243,14 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
 
     }
 
-    private void localBrodcastInitialize() {
+    private void localBrodcastInitialize()
+    {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter(StaticContent.LocalBrodcastReceiverCode.CLOSE_ACTIVITY));
     }
 
-    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver()
+    {
         @Override
         public void onReceive(Context context, Intent intent) {
             String message = intent.getStringExtra(StaticContent.LocalBrodcastReceiverCode.CLOSE_ACTIVITY);

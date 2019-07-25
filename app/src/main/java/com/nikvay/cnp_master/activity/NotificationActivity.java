@@ -30,7 +30,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NotificationActivity extends AppCompatActivity  implements VolleyCompleteListener {
+public class NotificationActivity extends AppCompatActivity  implements VolleyCompleteListener
+{
 
     ImageView iv_back, iv_empty_list;
     RecyclerView recycler_view_notification;
@@ -51,7 +52,8 @@ public class NotificationActivity extends AppCompatActivity  implements VolleyCo
 
     }
 
-    private void callNotificationList() {
+    private void callNotificationList()
+    {
         HashMap<String, String> map = new HashMap<>();
         map.put(ServerConstants.URL, ServerConstants.serverUrl.NOTIFICATION_LIST);
         map.put("sales_person_id", user_id);

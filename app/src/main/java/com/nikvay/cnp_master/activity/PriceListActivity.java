@@ -81,7 +81,8 @@ public class PriceListActivity extends AppCompatActivity implements VolleyComple
 
     }
 
-    private void localBrodcastInitialize() {
+    private void localBrodcastInitialize()
+    {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter(StaticContent.LocalBrodcastReceiverCode.CLOSE_ACTIVITY));
     }

@@ -45,7 +45,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
     private RadioButton radioYCA, radioNCA, radioDispatchEmail, radioCM, radioTCY, radioTCN, radioInspectionY, radioInspectionN, radioDelivery, radioORCYes, radioORCNo;
     private AutoCompleteTextView textTransporter, textPaymentDetails, textEmail, textSpecs, textOther, textReference, textCell_No, textBilling_GST_No, textDelivery_Address, textTerm_Of_Payment, textDelivery1_Address, textDelivery2_Address, textDelivery3_Address;
     private TextInputLayout textReferenceTI, textCell_NoTI, textBilling_GST_NoTI, textDelivery_AddressTI, textTerm_Of_PaymentTI, textDelivery1_AddressTI, textDelivery2_AddressTI, textDelivery3_AddressTI;
-    private RadioGroup radioGroupDispatchEmail, radioGroupCMY, radioGroupDeliveryAddress, radioGroupORC;
+    private RadioGroup radioGroupDispatchEmail, radioGroupCMY, radioGroupDeliveryAddress/*, radioGroupORC*/;
 
     String profileComplete = "Yes", deliveryAddress;
     private String mQuotationNumber;
@@ -108,7 +108,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         radioTCN = findViewById(R.id.radioTCN);
         radioInspectionY = findViewById(R.id.radioInspectionY);
         radioInspectionN = findViewById(R.id.radioInspectionN);
-        radioGroupORC = findViewById(R.id.radioGroupORC);
+       // radioGroupORC = findViewById(R.id.radioGroupORC);
 
 
         textReference = findViewById(R.id.textReference);
@@ -343,7 +343,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
             }
         });
 
-        radioGroupORC.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+      /*  radioGroupORC.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 radioORCYes = findViewById(checkedId);
@@ -356,27 +356,27 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                     orc = "no";
                 }
             }
-        });
+        });*/
 
 
-        btnCancelDialogORC.setOnClickListener(new View.OnClickListener() {
+   /*     btnCancelDialogORC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 orcYesDialog.dismiss();
                 orc = "no";
 
-                textCompanyNameORC.setText("");
+                //textCompanyNameORC.setText("");
                 textPersonNameORC.setText("");
-                textPanNoORC.setText("");
+//                textPanNoORC.setText("");
                 textAmountORC.setText("");
                 textInvoiceNoAndAmountORC.setText("");
-                textDiscountORC.setText("");
-                textAmountOnORC.setText("");
+          //      textDiscountORC.setText("");
+               // textAmountOnORC.setText("");
                 textDateOnInvoiceORC.setText("");
                 textCommentsORC.setText("");
                 textFormDateORC.setText("");
             }
-        });
+        });*/
 
         btnOkDialogORC.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -649,7 +649,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         map.put("space_related", getSpecs);
         map.put("inspection", radioInspectionY.isSelected() ? "yes" : "no");
         map.put("others", getOther);
-        map.put("is_orc", orc);
+       // map.put("is_orc", orc);
         if (orc.equalsIgnoreCase("yes")) {
             map.put("company_name", textCompanyName);
             map.put("contact_person", textPersonName);

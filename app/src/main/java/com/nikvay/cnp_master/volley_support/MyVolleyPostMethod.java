@@ -21,8 +21,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyVolleyPostMethod {
-
+public class MyVolleyPostMethod
+{
     Context context;
     private int serviceCode;
     private Map<String, String> map;
@@ -32,7 +32,8 @@ public class MyVolleyPostMethod {
     private LoginAlertDialog loginAlertDialog;
     private UserData userData;
 
-    public MyVolleyPostMethod(Context context, HashMap<String, String> map, int serviceCode, boolean isDialog) {
+    public MyVolleyPostMethod(Context context, HashMap<String, String> map, int serviceCode, boolean isDialog)
+    {
         this.map = map;
         this.serviceCode = serviceCode;
         this.context = context;

@@ -65,7 +65,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class LoginActivity extends AppCompatActivity implements VolleyCompleteListener {
+public class LoginActivity extends AppCompatActivity implements VolleyCompleteListener
+{
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     // EditText edt_email, edt_password;
@@ -122,12 +123,15 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
         if (mapUtility.getGPSstatus()) {
             mRequestingLocationUpdates = true;
             startLocationUpdates();
-        } else {
+        }
+        else
+            {
             mapUtility.displayLocationSettingsRequest(getApplicationContext());
         }
     }
 
-    private void initView() {
+    private void initView()
+    {
         sharedUtil = new SharedUtil(LoginActivity.this);
         VibrateOnClick.vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         textEmail = findViewById(R.id.textEmail);
@@ -136,9 +140,11 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
         layoutLogin = findViewById(R.id.layoutLogin);
         txt_error_message = findViewById(R.id.txt_error_message);
 
-        layoutLogin.setOnClickListener(new View.OnClickListener() {
+        layoutLogin.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 VibrateOnClick.vibrate();
                 startLocationUpdates();
                 String email = textEmail.getText().toString();
@@ -158,7 +164,8 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
 
     }
 
-    private void callWebServices(String email, String password, String token) {
+    private void callWebServices(String email, String password, String token)
+    {
         String address = mapUtility.getCompleteAddressString(LoginActivity.shareLatitude, LoginActivity.shareLongitude);
 
         if (address != null && !address.equals("")) {

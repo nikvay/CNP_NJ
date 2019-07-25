@@ -69,7 +69,8 @@ public class HomeScreenFragment extends Fragment {
             textLocationDailyReport;
 
 
-    public HomeScreenFragment(Context mContext) {
+    public HomeScreenFragment(Context mContext)
+    {
         this.mContext = mContext;
     }
 

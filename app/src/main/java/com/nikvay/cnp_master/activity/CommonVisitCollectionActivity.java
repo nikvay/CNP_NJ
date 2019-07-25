@@ -78,7 +78,8 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
         initialize();
     }
 
-    private void localBrodcastInitialize() {
+    private void localBrodcastInitialize()
+    {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter(StaticContent.LocalBrodcastReceiverCode.CLOSE_ACTIVITY));
     }
@@ -104,7 +105,8 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
         return super.onOptionsItemSelected(item);
     }
 
-    private void initialize() {
+    private void initialize()
+    {
         VibrateOnClick.vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         fab = findViewById(R.id.fab);
         userData = new UserData(getApplicationContext());

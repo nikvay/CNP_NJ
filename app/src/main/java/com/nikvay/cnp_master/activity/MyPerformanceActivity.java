@@ -40,7 +40,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-public class MyPerformanceActivity extends AppCompatActivity implements VolleyCompleteListener {
+public class MyPerformanceActivity extends AppCompatActivity implements VolleyCompleteListener
+{
 
 
     private ImageView iv_back_image_activity;
