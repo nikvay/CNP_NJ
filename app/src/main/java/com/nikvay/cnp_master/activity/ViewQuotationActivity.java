@@ -51,7 +51,7 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
     private ArrayList<ViewQuotationModel> arrayList = new ArrayList<>();
     private TextView
             textQNumberVQ,
-            textStatusVQ,
+            textStatusVQ,tv_remark,
             textTotalPrice;
     private AutoCompleteTextView textCustomerNameVQ,
             textBillingContactPersonVQ,
@@ -81,11 +81,14 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
     private MathCalculation mathCalculation;
     float mNetAmount = 0;
     float ans = 0;
-    private Button btnGotIt;
+    private Button btnGotIt,btn_ok,btn_cancel;
     private Button btnOKReason;
     private Button btnCancelReason;
     private int isMail = 0;
     private Dialog cancelDialog;
+
+    private Dialog remarkDialog;
+EditText etRemark;
     private EditText editCancelReason;
     private TextView textNetAmountQV,
             textPackingChargesHQV,
@@ -123,6 +126,7 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
         initialize();
     }
 
+
     private void localBrodcastInitialize() {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter(StaticContent.LocalBrodcastReceiverCode.CLOSE_ACTIVITY));
@@ -138,7 +142,15 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
         }
     };
 
-    private void initialize() {
+    private void initialize()
+    {
+
+        remarkDialog=new Dialog(this);
+        remarkDialog.setContentView(R.layout.remark_dialog);
+        btn_ok=remarkDialog.findViewById(R.id.btn_ok);
+        etRemark=remarkDialog.findViewById(R.id.et_remark);
+        btn_cancel=remarkDialog.findViewById(R.id.btn_cancel);
+        tv_remark=findViewById(R.id.remark);
         appController = (AppController) getApplicationContext();
         mathCalculation = new MathCalculation();
         cancelDialog = new Dialog(this);
@@ -190,6 +202,26 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
     }
 
     private void events() {
+
+        btn_ok.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+          remark();
+            }
+        });
+
+        tv_remark.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                remarkDialog.show();
+
+            }
+        });
         btnCancelReason.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -261,6 +293,18 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
         });
 */
     }
+
+    private void remark()
+    {
+        String remark=etRemark.getText().toString();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("quote_num",quote_num);
+        map.put(ServerConstants.URL, ServerConstants.serverUrl.quote_summary);
+        map.put("quote_summary", remark);
+        new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.REMARK, true);
+
+    }
+
     private void callDownloadPdfList() {
         HashMap<String, String> map = new HashMap<>();
         map.put(ServerConstants.URL, ServerConstants.serverUrl.QUOTATION_PDF_LIST);
@@ -268,7 +312,9 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
         new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.QUOTATION_PDF_LIST, true);
     }
 
-    private void changeStatusWS(int statusCode) {
+    //TODO
+    private void changeStatusWS(int statusCode)
+    {
         HashMap<String, String> map = new HashMap<>();
         map.put(ServerConstants.URL, ServerConstants.serverUrl.CHANGE_STATUS);
         map.put("status", String.valueOf(statusCode));

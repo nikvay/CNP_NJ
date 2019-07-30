@@ -210,7 +210,8 @@ public class HomeScreenFragment extends Fragment {
             }
         });
 
-        linearQuoList.setOnClickListener(new View.OnClickListener() {
+        linearQuoList.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 VibrateOnClick.vibrate();
