@@ -88,7 +88,7 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
     private Dialog cancelDialog;
 
     private Dialog remarkDialog;
-EditText etRemark;
+    EditText etRemark;
     private EditText editCancelReason;
     private TextView textNetAmountQV,
             textPackingChargesHQV,
@@ -108,7 +108,7 @@ EditText etRemark;
     public static boolean isUpdated = false;
     private boolean toHideEdit = false;
     private boolean toDownloadEdit = false;
-  //  private ImageView iv_image_download;
+    //  private ImageView iv_image_download;
     DownloadManager downloadManager;
 
     @Override
@@ -171,7 +171,7 @@ EditText etRemark;
         textPackingChargesVQ = findViewById(R.id.textPackingChargesVQ);
         textBranchNameVQ = findViewById(R.id.textBranchNameVQ);
         textBillingAddressVQ =  findViewById(R.id.textBillingAddressVQ);
-       // iv_image_download =  findViewById(R.id.iv_image_download);
+        // iv_image_download =  findViewById(R.id.iv_image_download);
         quotationInitialize();
         linearButtonsVQ = findViewById(R.id.linearButtonsVQ);
         btnDynamic = findViewById(R.id.btnDynamic);
@@ -208,7 +208,7 @@ EditText etRemark;
             @Override
             public void onClick(View v)
             {
-          remark();
+                remark();
             }
         });
 
@@ -220,6 +220,12 @@ EditText etRemark;
 
                 remarkDialog.show();
 
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                remarkDialog.dismiss();
             }
         });
         btnCancelReason.setOnClickListener(new View.OnClickListener() {
@@ -302,7 +308,7 @@ EditText etRemark;
         map.put(ServerConstants.URL, ServerConstants.serverUrl.quote_summary);
         map.put("quote_summary", remark);
         new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.REMARK, true);
-
+        remarkDialog.dismiss();
     }
 
     private void callDownloadPdfList() {

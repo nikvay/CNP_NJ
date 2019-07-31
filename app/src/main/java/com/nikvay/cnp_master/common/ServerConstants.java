@@ -14,7 +14,7 @@ public class ServerConstants {
 
         //public static final String BASE_URL = "http://www.nikvay.com/admin/";
         public static final String BASE_URL ="http://cnpmasterapp.com/admin/"; //Live Url
-       // public static final String BASE_URL = "http://www.cnpindiaapp.com/admin_new/";
+        // public static final String BASE_URL = "http://www.cnpindiaapp.com/admin_new/";
         public static final String IMAGE_BASE_URL = BASE_URL + "media/user-profile-pictures/";
         public static final String LOGIN = BASE_URL + "ws-login";
         public static final String CHANGE_PASSWORD = BASE_URL + "ws-change_password";
@@ -40,11 +40,6 @@ public class ServerConstants {
         public static final String QUOTATION_LIST = BASE_URL + "ws-list-quotation";
         public static final String VIEW_QUOTATION = BASE_URL + "ws-view-quotation";
         public static final String CHANGE_STATUS = BASE_URL + "ws-change-status";
-
-
-        public static final String quote_summary = BASE_URL + "ws-update-summery";
-
-
         public static final String SEND_MAIL = BASE_URL + "ws-send-quote-mail";
         public static final String GET_OUTSTANDING_AMOUNT = BASE_URL + "ws-get-outstanding-amount";
         public static final String GET_OUTSTANDING_RECEIPT = BASE_URL + "ws-get-recept";
@@ -57,6 +52,8 @@ public class ServerConstants {
         public static final String UPDATE_CUSTOMER = BASE_URL + "ws-customer-update";
         public static final String ADD_HO_DETAIL = BASE_URL + "ws-add-ho-visits";
         public static final String SEND_PI = BASE_URL + "ws-send-pi";
+
+        public static final String quote_summary = BASE_URL + "ws-update-summery";
 
 
         public static final String MARK_ATTENDANCE= BASE_URL + "ws-attendence";
@@ -133,7 +130,6 @@ public class ServerConstants {
         public  static final int COLLECTION_DEPOSIT=149;
 
         public  static final int REMARK=150;
-
 
     }
 

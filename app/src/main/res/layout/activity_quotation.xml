@@ -66,14 +66,16 @@
                 <ImageView
                     android:id="@+id/iv_lost_quo"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="70dp"
                     android:layout_centerHorizontal="true"
-                    android:src="@drawable/ic_vector_waiting_approval" />
+                    android:src="@drawable/clipboard" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="30dp"
                     android:layout_below="@+id/iv_lost_quo"
                     android:text="Lost Quotation"
                     android:textColor="@color/text_color1" />
@@ -82,10 +84,9 @@
 
                 <RelativeLayout
                     android:layout_width="30dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_height="30dp"
-                    android:layout_marginStart="-10dp"
-                    android:id="@+id/rr_lost_quo"
-                    android:layout_toEndOf="@+id/iv_lost_quo">
+                    android:id="@+id/rr_lost_quo">
 
 
                     <TextView
@@ -126,14 +127,15 @@
                     <ImageView
                         android:id="@+id/iv_waiting_for_app"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/ic_vector_waiting_approval" />
+                        android:src="@drawable/stopwatch" />
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
                         android:layout_below="@+id/iv_waiting_for_app"
                         android:text="Waiting for Approval"
                         android:textColor="@color/text_color1" />
@@ -143,9 +145,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="-10dp"
-                        android:id="@+id/rr_waiting_for_app"
-                        android:layout_toEndOf="@+id/iv_waiting_for_app">
-
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/rr_waiting_for_app">
 
                         <TextView
                             android:id="@+id/text_waiting_for_app_count"
@@ -190,15 +191,17 @@
                     <ImageView
                         android:id="@+id/iv_approved"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
+
                         android:layout_centerHorizontal="true"
-                        android:src="@drawable/ic_smile" />
+                        android:src="@drawable/approval" />
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/iv_approved"
+                        android:layout_marginLeft="30dp"
                         android:text="Approve by Admin"
                         android:textColor="@color/text_color1" />
 
@@ -206,8 +209,7 @@
                     <RelativeLayout
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="-10dp"
-                        android:layout_toEndOf="@+id/iv_approved"
+                        android:layout_alignParentEnd="true"
                         android:id="@+id/rr_approved">
 
 
@@ -248,10 +250,10 @@
                     <ImageView
                         android:id="@+id/iv_waiting_for_customer"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="80dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="0dp"
-                        android:src="@drawable/ic_vector_lost_quo" />
+                        android:src="@drawable/customerreview" />
 
 
                     <TextView
@@ -266,8 +268,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginStart="-10dp"
-                        android:id="@+id/rr_waiting_for_customer"
-                        android:layout_toEndOf="@+id/iv_waiting_for_customer">
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/rr_waiting_for_customer">
 
                         <TextView
                             android:id="@+id/text_waiting_for_customer_count"
@@ -316,15 +318,16 @@
                 <ImageView
                     android:id="@+id/iv_order_rec"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="70dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="0dp"
-                    android:src="@drawable/ic_vector_order_received" />
+                    android:src="@drawable/receiver" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
                     android:layout_below="@+id/iv_order_rec"
                     android:text="Order Received"
                     android:textColor="@color/text_color1" />
@@ -333,8 +336,7 @@
                 <RelativeLayout
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginStart="-10dp"
-                    android:layout_toEndOf="@+id/iv_order_rec"
+                    android:layout_alignParentEnd="true"
                     android:id="@+id/rr_order_rec">
 
                     <TextView
@@ -379,15 +381,16 @@
                     <ImageView
                         android:id="@+id/iv_ready_app"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="0dp"
-                        android:src="@drawable/ic_smile" />
+                        android:src="@drawable/completedtask" />
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
                         android:layout_below="@+id/iv_ready_app"
                         android:text="Ready for Approval"
                         android:textColor="@color/text_color1" />
@@ -396,8 +399,7 @@
                     <RelativeLayout
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="-10dp"
-                        android:layout_toEndOf="@+id/iv_ready_app"
+                        android:layout_alignParentEnd="true"
                         android:id="@+id/rr_ready_app">
 
                         <TextView
@@ -453,15 +455,16 @@
                     <ImageView
                         android:id="@+id/iv_pi"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="70dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="0dp"
-                        android:src="@drawable/ic_smile" />
+                        android:src="@drawable/bill" />
 
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
                         android:layout_below="@+id/iv_pi"
                         android:text="Proforma Invoice"
                         android:textColor="@color/text_color1" />
@@ -470,8 +473,7 @@
                     <RelativeLayout
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="-10dp"
-                        android:layout_toEndOf="@+id/iv_pi"
+                        android:layout_alignParentEnd="true"
                         android:id="@+id/rr_pi">
 
                         <TextView
